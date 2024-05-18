@@ -19,6 +19,7 @@ import Image from "./images/goose2.png";
 
 const App = ({ addOnUISdk, sandboxProxy, clientStorage }) => {
     const [currBranch, setCurrBranch] = useState("main")
+    const [selectedBranch, setselectedBranch] = useState("second")
 
 
     function createRect() {
@@ -55,8 +56,8 @@ const App = ({ addOnUISdk, sandboxProxy, clientStorage }) => {
         await AddOnSdk.ready;
 
         let dialogOptions = {
-            title: "titleValue",
-            description: "test",
+            title: "Merge " + selectedBranch + " to " + currBranch,
+            description: "",
             variant: "confirmation",
         };
         try {
@@ -123,7 +124,7 @@ const App = ({ addOnUISdk, sandboxProxy, clientStorage }) => {
                         </div> 
                     </div>    
                     <div className="actionContainer">
-                        <Button className="pushContainer">
+                        <Button className="pushContainer" onClick={pushModal}>
                             <img></img>
                             <p>Push Changes</p>
                         </Button>
@@ -131,7 +132,7 @@ const App = ({ addOnUISdk, sandboxProxy, clientStorage }) => {
                             <Button className="pullContainer">
                                 <p>Pull Version</p>
                             </Button>
-                            <Button className="mergeContainer">
+                            <Button className="mergeContainer" onClick={mergeModal}>
                                 <p>Merge Versions</p>
                             </Button>
                         </div>
@@ -146,58 +147,7 @@ const App = ({ addOnUISdk, sandboxProxy, clientStorage }) => {
                         <VersionHistory></VersionHistory>
                     </div>
                 </div>                    
-                            
-
-                  
-                
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                <div className="dropDownContainer">
-                    <div className="dropDownItems">
-                        <p className ="tittle">Main</p>
-                        <sp-picker-button quiet></sp-picker-button>
-                    </div>
-                    <sp-divider size="m"></sp-divider>
-                </div>
-                <div className="actionContainers">
-                    <button className="pushButton" onClick={pushModal}>
-                        <p>Push</p>
-                    </button>
-                    <button className="pullButton">
-                        <p>Pull</p>
-                    </button>
-                    <button className="mergeButton">
-                        <p>Merge</p>
-                    </button>
-                </div>
-                <div className="versionHistory">
-                    <VersionHistory></VersionHistory>
-                    
-
-                </div>
-
+                        
 
                 <Button size="m" onClick={createRect}>
                     Create Rectangle
