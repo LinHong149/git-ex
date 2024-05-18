@@ -5,8 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a3d55e8b-6469-4fad-9b93-a614e1f30119" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/src/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/manifest.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ui/components/App.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/components/App.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ui/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/index.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,7 +31,7 @@
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "Merging main",
     "last_opened_file_path": "/Users/jamesliang/WebstormProjects/git-ex",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -56,7 +56,7 @@
       <option name="presentableId" value="Default" />
       <updated>1716053948981</updated>
       <workItem from="1716053950053" duration="1970000" />
-      <workItem from="1716061091757" duration="594000" />
+      <workItem from="1716061091757" duration="728000" />
     </task>
     <servers />
   </component>
