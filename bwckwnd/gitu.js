@@ -33,8 +33,8 @@ async function addFiles(repoPath, jsonData, fileName) {
             return;
         }
         console.log('File added to staging area.');
-        fs.unlinkSync(tmpFilePath);
-        console.log('Temporary file removed.');
+        // fs.unlinkSync(tmpFilePath);
+        // console.log('Temporary file removed.');
     });
     return result;
 }

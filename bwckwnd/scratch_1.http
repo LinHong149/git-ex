@@ -1,0 +1,48 @@
+###
+POST http://localhost:3000/init
+Accept: application/json
+Content-Type: application/json
+
+{
+  "path": "../../../mnt/repo"
+}
+
+###
+GET http://localhost:3000/status?path=../../../mnt/repo
+Accept: application/json
+
+###
+PUT http://localhost:3000/add
+Accept: application/json
+Content-Type: application/json
+
+{
+  "path": "../../../mnt/repo",
+  "fileName": "tested.json",
+  "files": [
+    {
+      "id": "2023-05-18T172615.400",
+      "x": 100,
+      "y": 200
+    },
+    {
+      "id": "2064-05-18T172534.400",
+      "x": 140,
+      "y": 640
+    }
+  ]
+}
+
+###
+POST http://localhost:3000/commit
+Accept: application/json
+Content-Type: application/json
+
+{
+  "path": "../../../mnt/repo",
+  "message": "Initial commit"
+}
+
+###
+GET http://localhost:3000/status?path=../../../mnt/repo
+Accept: application/json
