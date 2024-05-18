@@ -5,12 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a3d55e8b-6469-4fad-9b93-a614e1f30119" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/bwckwnd/Dockerfile" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bwckwnd/gitu.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bwckwnd/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fwontwnd/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bwckwnd/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/bwckwnd/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bwckwnd/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/bwckwnd/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bwckwnd/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/bwckwnd/package.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -66,7 +64,7 @@
       <recent name="$PROJECT_DIR$/fwontwnd" />
     </key>
   </component>
-  <component name="RunManager" selected="HTTP Request.scratch_1 | #2">
+  <component name="RunManager" selected="HTTP Request.scratch_1 | #3">
     <configuration name="All in scratch_1" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" path="$APPLICATION_CONFIG_DIR$/scratches/scratch_1.http">
       <method v="2" />
     </configuration>
@@ -76,8 +74,12 @@
     <configuration name="scratch_1 | #2" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$APPLICATION_CONFIG_DIR$/scratches/scratch_1.http" index="2" requestIdentifier="#2" runType="Run single request">
       <method v="2" />
     </configuration>
+    <configuration name="scratch_1 | #3" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$APPLICATION_CONFIG_DIR$/scratches/scratch_1.http" index="3" requestIdentifier="#3" runType="Run single request">
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="HTTP Request.scratch_1 | #3" />
         <item itemvalue="HTTP Request.scratch_1 | #2" />
         <item itemvalue="HTTP Request.scratch_1 | #1" />
         <item itemvalue="HTTP Request.All in scratch_1" />
@@ -93,7 +95,7 @@
       <option name="presentableId" value="Default" />
       <updated>1716053948981</updated>
       <workItem from="1716053950053" duration="1970000" />
-      <workItem from="1716061091757" duration="3724000" />
+      <workItem from="1716061091757" duration="6835000" />
     </task>
     <servers />
   </component>

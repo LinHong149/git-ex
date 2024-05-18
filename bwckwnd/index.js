@@ -1,45 +1,57 @@
-const { createServer } = require('node:http');
-const url = require('url');
-const { initializeRepo, addFiles, commitChanges, checkStatus } = require('./gitu');
-const pathModule = require('path');
+const express = require('express');
+const { initializeRepo, commitChanges, checkStatus } = require('./gitu');
+const path = require('path');
 
-const hostname = '0.0.0.0';
+const app = express();
 const port = 3000;
 
+app.use(express.json());
 
-const server = createServer(async (req, res) => {
-    const reqUrl = url.parse(req.url, true);
-    const path = reqUrl.pathname;
-    const query = reqUrl.query;
+app.post(['/init', '/commit'], async (req, res) => {
+    const { path: repoPath, message } = req.body;
 
-    res.setHeader('Content-Type', 'text/plain');
+    if (!repoPath) {
+        return res.status(400).send('Missing repo path');
+    }
 
-    if (path === '/init' && req.method === 'GET') {
-        const repoPath = pathModule.join(__dirname, query.path);
-        if (!repoPath) {
-            res.statusCode = 400;
-            res.end('Missing repo path');
-        } else {
-            const result = await initializeRepo(repoPath);
-            res.statusCode = 200;
-            res.end(result);
+    let result;
+    try {
+        if (req.path === '/init') {
+            result = await initializeRepo(path.join(__dirname, repoPath));
+        } else if (req.path === '/commit') {
+            result = await commitChanges(path.join(__dirname, repoPath), message);
         }
-    } else if (path === '/status' && req.method == 'GET') {
-        const repoPath = pathModule.join(__dirname, query.path);
-        if (!repoPath) {
-            res.statusCode = 400;
-            res.end('Missing repo path');
-        } else {
-            const result = await checkStatus(repoPath);
-            res.statusCode = 200;
-            res.end(result);
-        }
-    } else {
-        res.statusCode = 404;
-        res.end('Not Found');
+        res.status(200).send(result);
+    } catch (error) {
+        res.status(500).send('Internal Server Error');
     }
 });
 
-server.listen(port, hostname, () => {
-    console.log(`Server running at http://${hostname}:${port}/`);
+app.get('/status', async (req, res) => {
+    const {path: repoPath} = req.query;
+
+    if (!repoPath) {
+        return res.status(400).send('Missing repo path');
+    }
+
+    try {
+        const result = await checkStatus(path.join(__dirname, repoPath));
+        res.status(200).send(result);
+    } catch (error) {
+        res.status(500).send('Internal Server Error');
+    }
+});
+
+app.put('/add', (req, res) => {
+    // Handle add endpoint if needed
+    res.status(404).send('Not Found');
+});
+
+// Handle other endpoints
+app.use((req, res) => {
+    res.status(404).send('Not Found');
+});
+
+app.listen(port, () => {
+    console.log(`Server running at http://localhost:${port}/`);
 });
