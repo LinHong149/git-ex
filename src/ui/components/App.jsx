@@ -12,13 +12,6 @@ import React from "react";
 import "./App.css";
 
 
-await AddOnSdk.ready;
-// Confirmation Dialog Example
-
-// const response = await AddOnSdk.app.showModalDialog(dialogOptions);
-// console.log("Button type clicked " + response.buttonType)
-
-
 const App = ({ addOnUISdk, sandboxProxy }) => {
     function createRect() {
         sandboxProxy.createRectangle();
