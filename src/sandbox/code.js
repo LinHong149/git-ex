@@ -28,6 +28,38 @@ function start() {
             // Add the rectangle to the document.
             const insertionParent = editor.context.insertionParent;
             insertionParent.children.append(rectangle);
+        },
+        listChildren: () => {
+            try {
+                console.log("Start of function");
+                // https://developer.adobe.com/express/add-ons/docs/references/document-sandbox/document-apis/classes/ExpressRootNode/
+                const documentRoot = editor.documentRoot;
+                // https://developer.adobe.com/express/add-ons/docs/references/document-sandbox/document-apis/classes/PageList/
+                const pages = documentRoot.pages;
+                console.log(`Document Root ID: ${documentRoot.id}`);
+                console.log(`Number of pages: ${pages.length}`);
+                // https://developer.adobe.com/express/add-ons/docs/references/document-sandbox/document-apis/classes/PageNode/
+                for (const page of pages) {
+                    console.log(`Page: ${page.name} (ID: ${page.id})`);
+                    console.log(`Type: ${page.type}`);
+                    const pageNodeChildren = page.allChildren;
+                    // https://developer.adobe.com/express/add-ons/docs/references/document-sandbox/document-apis/classes/VisualNode/
+                    for (const pageNodeChild of pageNodeChildren) {
+                        console.log(`Child: ${pageNodeChild.name} (ID: ${pageNodeChild.id})`);
+                        console.log(`Type: ${pageNodeChild.type}`);
+                        const visualNodeChildren = pageNodeChild.allChildren;
+                        for (const visualNodeChild of visualNodeChildren) {
+                            // https://developer.adobe.com/express/add-ons/docs/references/document-sandbox/document-apis/classes/TextNode/
+                            console.log(`Child: ${visualNodeChild.name} (ID: ${visualNodeChild.id})`);
+                            console.log(`Type: ${visualNodeChild.type}`);
+                            // https://developer.adobe.com/express/add-ons/docs/references/document-sandbox/document-apis/interfaces/Point/
+                            console.log(`Translation: x - ${visualNodeChild.translation.x} y - ${visualNodeChild.translation.y}`)
+                        }
+                    }
+                }
+            } catch (error) {
+                console.error("Error listing children:", error);
+            }
         }
     };
 

@@ -11,8 +11,11 @@ import React from "react";
 import "./App.css";
 
 const App = ({ addOnUISdk, sandboxProxy }) => {
-    function handleClick() {
+    function createRect() {
         sandboxProxy.createRectangle();
+    }
+    function listChil() {
+        sandboxProxy.listChildren();
     }
 
     return (
@@ -20,10 +23,13 @@ const App = ({ addOnUISdk, sandboxProxy }) => {
         // You may use "addOnUISdk.app.ui.theme" to get the current theme and react accordingly.
         <Theme theme="express" scale="medium" color="light">
             <div className="container">
-                <Button size="m" onClick={handleClick}>
+                <Button size="m" onClick={createRect}>
                     Create Rectangle
                 </Button>
-                FASNDFKSABDFJKNSADJKFBSALJDFN
+                <Button size="m" onClick={listChil}>
+                    List Children
+                </Button>
+                
             </div>
         </Theme>
     );
