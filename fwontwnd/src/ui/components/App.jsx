@@ -15,6 +15,7 @@ import '@spectrum-web-components/divider/sp-divider.js';
 import VersionHistory from "./versionHistory.jsx";
 import addOnUISdk, { ClientStorage } from "https://new.express.adobe.com/static/add-on-sdk/sdk.js";
 import { useState } from "react"
+import Image from "./images/goose2.png";
 
 const App = ({ addOnUISdk, sandboxProxy, clientStorage }) => {
     const [currBranch, setCurrBranch] = useState("main")
@@ -100,11 +101,11 @@ const App = ({ addOnUISdk, sandboxProxy, clientStorage }) => {
                                     <p>Main</p>
                                     <sp-picker-button quiet></sp-picker-button>
                                 </div>
-                                <img></img>
+                                <img src={Image}></img>
                             </div>
                             <div className="createBranchContainer">
-                                <img></img>
-                                <img></img>
+                                <img src={Image}></img>
+                                <img src={Image}></img>
                             </div> 
                         </div> 
                     </div>    
