@@ -61,15 +61,15 @@ const App = ({ addOnUISdk, sandboxProxy }) => {
                     <sp-divider size="m"></sp-divider>
                 </div>
                 <div className="actionContainers">
-                    <div className="pushButton">
+                    <button className="pushButton">
                         <p>Push</p>
-                    </div>
-                    <div className="pullButton">
+                    </button>
+                    <button className="pullButton">
                         <p>Pull</p>
-                    </div>
-                    <div className="mergeButton">
+                    </button>
+                    <button className="mergeButton">
                         <p>Merge</p>
-                    </div>
+                    </button>
                 </div>
                 <div className="versionHistory">
                     <VersionHistory></VersionHistory>
