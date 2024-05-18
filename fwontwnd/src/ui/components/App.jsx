@@ -25,8 +25,14 @@ const App = ({ addOnUISdk, sandboxProxy, clientStorage }) => {
     function createRect() {
         sandboxProxy.createRectangle();
     }
-    function listChil() {
-        sandboxProxy.listChildren();
+    async function listChil() {
+        const response = await sandboxProxy.listChildren();
+        console.log(response)
+        try {
+            initRepo(response)
+        } catch (error) {
+            console.log(error)
+        }
     }
     async function pushModal() {
         await AddOnSdk.ready;
@@ -80,24 +86,30 @@ const App = ({ addOnUISdk, sandboxProxy, clientStorage }) => {
         }
     }
 
-    async function initRepo() {
+    async function initRepo(repo) {
         let store = addOnUISdk.instance.clientStorage;
         try {
-            const repo = await store.getItem('repository');
-            if (repo) {
-                console.log('Repository already exists');
-            } else {
-                const newRepo = {
-                    commits: [],
-                    files: {}
-                };
-                await store.setItem('repository', newRepo);
-                console.log('Repository initialized');
-            }
-            console.log("Value stored in client storage:", repo);
+            await store.setItem('repository', repo);
+            // const repo = await store.getItem('repository');
+            // if (repo) {
+            //     console.log('Repository already exists');
+            // } else {
+            //     const newRepo = {
+            //         commits: [],
+            //         files: {}
+            //     };
+            //     await store.setItem('repository', newRepo);
+            //     console.log('Repository initialized');
+            // }
+            console.log("Value stored in client storage:", store.getItem('repository'));
         } catch (error) {
             console.log('Failed to initialize repository:', error);
         }
+    }
+    
+    async function showStorage() {
+        let store = addOnUISdk.instance.clientStorage;
+        console.log("Value stored in client storage:", await store.getItem('repository'));
     }
     
 
@@ -160,6 +172,9 @@ const App = ({ addOnUISdk, sandboxProxy, clientStorage }) => {
                 </Button>
                 <Button size="m" onClick={initRepo}>
                     Init Repository
+                </Button>
+                <Button size="m" onClick={showStorage}>
+                    Show Storage
                 </Button>
                 
             </div>

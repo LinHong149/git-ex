@@ -1,5 +1,12 @@
 import addOnSandboxSdk from "add-on-sdk-document-sandbox";
 import { editor } from "express-document-sdk";
+// import AddOnSdk from "https://new.express.adobe.com/static/add-on-sdk/sdk.js";
+
+// let store;
+
+// AddOnSdk.ready.then(async () => {
+//     store = AddOnSdk.instance.clientStorage;
+// })
 
 // Get the document sandbox runtime.
 const { runtime } = addOnSandboxSdk.instance;
@@ -29,9 +36,10 @@ function start() {
             const insertionParent = editor.context.insertionParent;
             insertionParent.children.append(rectangle);
         },
-        listChildren: () => {
+        listChildren: async () => {
             try {
                 console.log("Start of function");
+                var jsonData = [];
                 // https://developer.adobe.com/express/add-ons/docs/references/document-sandbox/document-apis/classes/ExpressRootNode/
                 const documentRoot = editor.documentRoot;
                 // https://developer.adobe.com/express/add-ons/docs/references/document-sandbox/document-apis/classes/PageList/
@@ -40,6 +48,7 @@ function start() {
                 console.log(`Number of pages: ${pages.length}`);
                 // https://developer.adobe.com/express/add-ons/docs/references/document-sandbox/document-apis/classes/PageNode/
                 for (const page of pages) {
+                    var branchData = [{id: page.id}, []]
                     console.log(`Page: ${page.name} (ID: ${page.id})`);
                     console.log(`Type: ${page.type}`);
                     const pageNodeChildren = page.allChildren;
@@ -49,6 +58,11 @@ function start() {
                         console.log(`Type: ${pageNodeChild.type}`);
                         const visualNodeChildren = pageNodeChild.allChildren;
                         for (const visualNodeChild of visualNodeChildren) {
+                            branchData[1].push({
+                                id: visualNodeChild.id,
+                                x: visualNodeChild.translation.x,
+                                y: visualNodeChild.translation.y
+                            })
                             // https://developer.adobe.com/express/add-ons/docs/references/document-sandbox/document-apis/classes/TextNode/
                             console.log(`Child: ${visualNodeChild.name} (ID: ${visualNodeChild.id})`);
                             console.log(`Type: ${visualNodeChild.type}`);
@@ -56,7 +70,9 @@ function start() {
                             console.log(`Translation: x - ${visualNodeChild.translation.x} y - ${visualNodeChild.translation.y}`)
                         }
                     }
+                    jsonData.push(branchData)
                 }
+                return JSON.stringify(jsonData)
             } catch (error) {
                 console.error("Error listing children:", error);
             }
