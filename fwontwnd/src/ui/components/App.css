@@ -26,3 +26,15 @@
     display: flex;
     justify-content: space-between;
 }
+
+.branchSelectionContainer {
+    display: flex;
+}
+
+.itemsContainer {
+    display:flex;
+}
+
+.createBranchContainer {
+    display:flex;
+}
