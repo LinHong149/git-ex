@@ -13,14 +13,40 @@ import "./App.css";
 import '@spectrum-web-components/picker-button/sp-picker-button.js';
 import '@spectrum-web-components/divider/sp-divider.js';
 import VersionHistory from "./versionHistory.jsx";
-
+import { useState } from "react"
 
 const App = ({ addOnUISdk, sandboxProxy }) => {
+    const [currBranch, setCurrBranch] = useState("main")
+
     function createRect() {
         sandboxProxy.createRectangle();
     }
     function listChil() {
         sandboxProxy.listChildren();
+    }
+    async function pushModal() {
+        await AddOnSdk.ready;
+        const cancelButtonTextValue = "submit"
+
+        let dialogOptions = {
+            title: "Push current changes onto " + currBranch,
+            description: "",
+            buttonLabels: {
+                primary: "Push",
+                cancel: "Cancel"
+            },
+            variant: "input",
+            field: {
+                label: "Commit Message",
+                placeholder: "Description",
+                fieldType: "text",
+            },
+        };
+        try {
+            const response = await AddOnSdk.app.showModalDialog(dialogOptions);
+        } catch (error) {
+            console.log(error)
+        }
     }
     async function testModal() {
         await AddOnSdk.ready;
@@ -28,16 +54,6 @@ const App = ({ addOnUISdk, sandboxProxy }) => {
         let dialogOptions = {
             title: "titleValue",
             description: "test",
-            // buttonLabels: {
-            //     primary:
-            //     primaryButtonTextValue != "" ? primaryButtonTextValue : undefined,
-            //     secondary:
-            //     secondaryButtonTextValue != ""
-            //         ? secondaryButtonTextValue
-            //         : undefined,
-            //     cancel:
-            //     cancelButtonTextValue != "" ? cancelButtonTextValue : undefined,
-            // },
             variant: "confirmation",
         };
         try {
@@ -61,7 +77,7 @@ const App = ({ addOnUISdk, sandboxProxy }) => {
                     <sp-divider size="m"></sp-divider>
                 </div>
                 <div className="actionContainers">
-                    <button className="pushButton">
+                    <button className="pushButton" onClick={pushModal}>
                         <p>Push</p>
                     </button>
                     <button className="pullButton">
