@@ -5,25 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a3d55e8b-6469-4fad-9b93-a614e1f30119" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.babelrc" beforeDir="false" afterPath="$PROJECT_DIR$/fwontwnd/.babelrc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/fwontwnd/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/fwontwnd/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/goose2.png" beforeDir="false" afterPath="$PROJECT_DIR$/fwontwnd/goose2.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/fwontwnd/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/fwontwnd/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/fwontwnd/src/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/fwontwnd/src/manifest.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sandbox/code.js" beforeDir="false" afterPath="$PROJECT_DIR$/fwontwnd/src/sandbox/code.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sandbox/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/fwontwnd/src/sandbox/tsconfig.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ui/components/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/fwontwnd/src/ui/components/App.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ui/components/App.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/fwontwnd/src/ui/components/App.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ui/components/images/goose2.png" beforeDir="false" afterPath="$PROJECT_DIR$/fwontwnd/src/ui/components/images/goose2.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ui/components/versionHistory.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/fwontwnd/src/ui/components/versionHistory.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ui/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/fwontwnd/src/ui/index.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ui/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/fwontwnd/src/ui/tsconfig.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tailwind.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/fwontwnd/tailwind.config.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/fwontwnd/tsconfig.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webpack.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/fwontwnd/webpack.config.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bwckwnd/Dockerfile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bwckwnd/gitu.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bwckwnd/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fwontwnd/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,23 +33,56 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "HTTP Request.All in scratch_1.executor": "Run",
+    "HTTP Request.scratch_1 | #1.executor": "Run",
+    "HTTP Request.scratch_1 | #2.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "main",
+    "javascript.nodejs.core.library.configured.version": "22.1.0",
+    "javascript.nodejs.core.library.typings.version": "20.12.12",
     "last_opened_file_path": "/Users/jamesliang/WebstormProjects/git-ex",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.lookFeel",
     "ts.external.directory.path": "/Users/jamesliang/Applications/WebStorm.app/Contents/plugins/javascript-impl/jsLanguageServicesImpl/external",
     "vue.rearranger.settings.migration": "true"
+  },
+  "keyToStringList": {
+    "com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File": [
+      "HTTP Request"
+    ]
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src" />
     </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/fwontwnd" />
+    </key>
+  </component>
+  <component name="RunManager" selected="HTTP Request.scratch_1 | #2">
+    <configuration name="All in scratch_1" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" path="$APPLICATION_CONFIG_DIR$/scratches/scratch_1.http">
+      <method v="2" />
+    </configuration>
+    <configuration name="scratch_1 | #1" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$APPLICATION_CONFIG_DIR$/scratches/scratch_1.http" requestIdentifier="#1" runType="Run single request">
+      <method v="2" />
+    </configuration>
+    <configuration name="scratch_1 | #2" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$APPLICATION_CONFIG_DIR$/scratches/scratch_1.http" index="2" requestIdentifier="#2" runType="Run single request">
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="HTTP Request.scratch_1 | #2" />
+        <item itemvalue="HTTP Request.scratch_1 | #1" />
+        <item itemvalue="HTTP Request.All in scratch_1" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -73,7 +93,7 @@
       <option name="presentableId" value="Default" />
       <updated>1716053948981</updated>
       <workItem from="1716053950053" duration="1970000" />
-      <workItem from="1716061091757" duration="1053000" />
+      <workItem from="1716061091757" duration="3724000" />
     </task>
     <servers />
   </component>
