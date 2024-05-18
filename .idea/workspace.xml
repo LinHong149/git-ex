@@ -5,6 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a3d55e8b-6469-4fad-9b93-a614e1f30119" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/bwckwnd/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bwckwnd/gitu.js" beforeDir="false" afterPath="$PROJECT_DIR$/bwckwnd/gitu.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bwckwnd/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/bwckwnd/index.js" afterDir="false" />
@@ -65,7 +66,7 @@
       <recent name="$PROJECT_DIR$/fwontwnd" />
     </key>
   </component>
-  <component name="RunManager" selected="HTTP Request.scratch_1 | #2">
+  <component name="RunManager" selected="HTTP Request.All in scratch_1">
     <configuration name="All in scratch_1" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" path="$APPLICATION_CONFIG_DIR$/scratches/scratch_1.http">
       <method v="2" />
     </configuration>
@@ -83,11 +84,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="HTTP Request.scratch_1 | #2" />
+        <item itemvalue="HTTP Request.All in scratch_1" />
         <item itemvalue="HTTP Request.scratch_1 | #3" />
         <item itemvalue="HTTP Request.scratch_1 | #4" />
+        <item itemvalue="HTTP Request.scratch_1 | #2" />
         <item itemvalue="HTTP Request.scratch_1 | #1" />
-        <item itemvalue="HTTP Request.All in scratch_1" />
       </list>
     </recent_temporary>
   </component>
@@ -100,7 +101,7 @@
       <option name="presentableId" value="Default" />
       <updated>1716053948981</updated>
       <workItem from="1716053950053" duration="1970000" />
-      <workItem from="1716061091757" duration="7659000" />
+      <workItem from="1716061091757" duration="8515000" />
     </task>
     <servers />
   </component>

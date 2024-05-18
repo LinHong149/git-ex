@@ -1,6 +1,9 @@
 const simpleGit = require('simple-git');
 const fs = require('fs');
 
+const authorName = 'John Doe';
+const authorEmail = 'john@doe.com';
+
 async function ensureDirectoryExists(dirPath) {
     if (!fs.existsSync(dirPath)) {
         fs.mkdirSync(dirPath, { recursive: true });
@@ -19,9 +22,9 @@ async function initializeRepo(repoPath) {
     }
 }
 
-async function addFiles(repoPath, jsonData) {
+async function addFiles(repoPath, jsonData, fileName) {
     await ensureDirectoryExists(repoPath);
-    const tmpFilePath = `${repoPath}/temp.json`;
+    const tmpFilePath = `${repoPath}/${fileName}`;
     fs.writeFileSync(tmpFilePath, jsonData);
     const git = simpleGit(repoPath);
     const result = git.add(tmpFilePath, (err) => {
@@ -39,6 +42,8 @@ async function addFiles(repoPath, jsonData) {
 async function commitChanges(repoPath, commitMessage) {
     await ensureDirectoryExists(repoPath);
     const git = simpleGit(repoPath);
+    await git.addConfig('user.name', authorName);
+    await git.addConfig('user.email', authorEmail);
     try {
         const result = await git.commit(commitMessage);
         console.log('Changes committed with message:', commitMessage);

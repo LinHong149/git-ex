@@ -43,14 +43,14 @@ app.get('/status', async (req, res) => {
 });
 
 app.put('/add', async (req, res) => {
-    const {path: repoPath, files: jsonData} = req.body;
+    const {path: repoPath, files: jsonData, fileName: fileName} = req.body;
 
     if (!repoPath) {
         return res.status(400).send('Missing repo path');
     }
 
     try {
-        const result = await addFiles(path.join(__dirname, repoPath), JSON.stringify(jsonData));
+        const result = await addFiles(path.join(__dirname, repoPath), JSON.stringify(jsonData), fileName);
         res.status(200).send(result);
     } catch (error) {
         res.status(500).send('Internal Server Error');
