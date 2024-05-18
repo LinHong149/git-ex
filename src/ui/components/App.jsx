@@ -13,9 +13,10 @@ import "./App.css";
 import '@spectrum-web-components/picker-button/sp-picker-button.js';
 import '@spectrum-web-components/divider/sp-divider.js';
 import VersionHistory from "./versionHistory.jsx";
+import addOnUISdk, { ClientStorage } from "https://new.express.adobe.com/static/add-on-sdk/sdk.js";
 
 
-const App = ({ addOnUISdk, sandboxProxy }) => {
+const App = ({ addOnUISdk, sandboxProxy, clientStorage }) => {
     function createRect() {
         sandboxProxy.createRectangle();
     }
@@ -44,6 +45,26 @@ const App = ({ addOnUISdk, sandboxProxy }) => {
             const response = await AddOnSdk.app.showModalDialog(dialogOptions);
         } catch (error) {
             console.log(error)
+        }
+    }
+
+    async function initRepo() {
+        let store = addOnUISdk.instance.clientStorage;
+        try {
+            const repo = await store.getItem('repository');
+            if (repo) {
+                console.log('Repository already exists');
+            } else {
+                const newRepo = {
+                    commits: [],
+                    files: {}
+                };
+                await store.setItem('repository', newRepo);
+                console.log('Repository initialized');
+            }
+            console.log("Value stored in client storage:", repo);
+        } catch (error) {
+            console.log('Failed to initialize repository:', error);
         }
     }
     
@@ -86,6 +107,9 @@ const App = ({ addOnUISdk, sandboxProxy }) => {
                 </Button>
                 <Button size="m" onClick={testModal}>
                     Open Test Modal
+                </Button>
+                <Button size="m" onClick={initRepo}>
+                    Init Repository
                 </Button>
                 
             </div>
