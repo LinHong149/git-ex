@@ -10,6 +10,9 @@ import { Button } from "@swc-react/button";
 import { Theme } from "@swc-react/theme";
 import React from "react";
 import "./App.css";
+import '@spectrum-web-components/picker-button/sp-picker-button.js';
+import '@spectrum-web-components/divider/sp-divider.js';
+import VersionHistory from "./versionHistory.jsx";
 
 
 const App = ({ addOnUISdk, sandboxProxy }) => {
@@ -49,10 +52,32 @@ const App = ({ addOnUISdk, sandboxProxy }) => {
         // Please note that the below "<Theme>" component does not react to theme changes in Express.
         // You may use "addOnUISdk.app.ui.theme" to get the current theme and react accordingly.
         <Theme theme="express" scale="medium" color="light">
-            <div className="container">
-                <Button size="m" onClick={createRect}>
-                    Create Rectangle
-                </Button>
+            <div className="mainContainer">
+                <div className="dropDownContainer">
+                    <div className="dropDownItems">
+                        <p className ="tittle">Main</p>
+                        <sp-picker-button quiet></sp-picker-button>
+                    </div>
+                    <sp-divider size="m"></sp-divider>
+                </div>
+                <div className="actionContainers">
+                    <div className="pushButton">
+                        <p>Push</p>
+                    </div>
+                    <div className="pullButton">
+                        <p>Pull</p>
+                    </div>
+                    <div className="mergeButton">
+                        <p>Merge</p>
+                    </div>
+                </div>
+                <div className="versionHistory">
+                    <VersionHistory></VersionHistory>
+                    
+
+                </div>
+
+
                 <Button size="m" onClick={listChil}>
                     List Children
                 </Button>
@@ -61,6 +86,7 @@ const App = ({ addOnUISdk, sandboxProxy }) => {
                 </Button>
                 
             </div>
+
         </Theme>
     );
 };
