@@ -78,6 +78,9 @@ const App = ({ addOnUISdk, sandboxProxy }) => {
                 </div>
 
 
+                <Button size="m" onClick={createRect}>
+                    Create Rectangle
+                </Button>
                 <Button size="m" onClick={listChil}>
                     List Children
                 </Button>
