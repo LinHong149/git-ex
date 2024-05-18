@@ -65,9 +65,19 @@ async function checkStatus(repoPath) {
     }
 }
 
+async function readJsonFile(filePath) {
+    try {
+        const data = fs.readFileSync(filePath, 'utf8');
+        return JSON.parse(data);
+    } catch (error) {
+        console.error('Failed to read JSON file:', error);
+    }
+}
+
 module.exports = {
     initializeRepo,
     addFiles,
     commitChanges,
     checkStatus,
+    readJsonFile
 };

@@ -1,5 +1,5 @@
 const express = require('express');
-const { initializeRepo, commitChanges, checkStatus, addFiles } = require('./gitu');
+const { initializeRepo, commitChanges, checkStatus, addFiles, readJsonFile} = require('./gitu');
 const path = require('path');
 
 const app = express();
@@ -51,6 +51,16 @@ app.put('/add', async (req, res) => {
 
     try {
         const result = await addFiles(path.join(__dirname, repoPath), JSON.stringify(jsonData), fileName);
+        res.status(200).send(result);
+    } catch (error) {
+        res.status(500).send('Internal Server Error');
+    }
+});
+
+app.get('/fetch', async (req, res) => {
+    const {path: filePath} = req.query;
+    try {
+        const result = await readJsonFile(path.join(__dirname, filePath));
         res.status(200).send(result);
     } catch (error) {
         res.status(500).send('Internal Server Error');

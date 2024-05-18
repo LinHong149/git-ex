@@ -46,3 +46,7 @@ Content-Type: application/json
 ###
 GET http://localhost:3000/status?path=../../../mnt/repo
 Accept: application/json
+
+###
+GET http://localhost:3000/fetch?path=../../../mnt/repo/tested.json
+Accept: application/json
