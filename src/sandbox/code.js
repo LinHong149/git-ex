@@ -60,7 +60,7 @@ function start() {
             } catch (error) {
                 console.error("Error listing children:", error);
             }
-        }
+        },
     };
 
     // Expose `sandboxApi` to the UI runtime.
