@@ -51,7 +51,20 @@ const App = ({ addOnUISdk, sandboxProxy, clientStorage }) => {
             console.log(error)
         }
     }
-    async function testModal() {
+    async function mergeModal() {
+        await AddOnSdk.ready;
+
+        let dialogOptions = {
+            title: "titleValue",
+            description: "test",
+            variant: "confirmation",
+        };
+        try {
+            const response = await AddOnSdk.app.showModalDialog(dialogOptions);
+        } catch (error) {
+            console.log(error)
+        }
+    }async function testModal() {
         await AddOnSdk.ready;
 
         let dialogOptions = {
