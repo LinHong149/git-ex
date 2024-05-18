@@ -19,16 +19,21 @@ async function initializeRepo(repoPath) {
     }
 }
 
-async function addFiles(repoPath, files) {
+async function addFiles(repoPath, jsonData) {
     await ensureDirectoryExists(repoPath);
+    const tmpFilePath = `${repoPath}/temp.json`;
+    fs.writeFileSync(tmpFilePath, jsonData);
     const git = simpleGit(repoPath);
-    try {
-        const result = await git.add(files);
-        return result;
-        console.log('Files added to staging area.');
-    } catch (error) {
-        console.error('Failed to add files:', error);
-    }
+    const result = git.add(tmpFilePath, (err) => {
+        if (err) {
+            console.error('Failed to add file to staging area:', err);
+            return;
+        }
+        console.log('File added to staging area.');
+        fs.unlinkSync(tmpFilePath);
+        console.log('Temporary file removed.');
+    });
+    return result;
 }
 
 async function commitChanges(repoPath, commitMessage) {

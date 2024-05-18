@@ -1,5 +1,5 @@
 const express = require('express');
-const { initializeRepo, commitChanges, checkStatus } = require('./gitu');
+const { initializeRepo, commitChanges, checkStatus, addFiles } = require('./gitu');
 const path = require('path');
 
 const app = express();
@@ -42,9 +42,19 @@ app.get('/status', async (req, res) => {
     }
 });
 
-app.put('/add', (req, res) => {
-    // Handle add endpoint if needed
-    res.status(404).send('Not Found');
+app.put('/add', async (req, res) => {
+    const {path: repoPath, files: jsonData} = req.body;
+
+    if (!repoPath) {
+        return res.status(400).send('Missing repo path');
+    }
+
+    try {
+        const result = await addFiles(path.join(__dirname, repoPath), JSON.stringify(jsonData));
+        res.status(200).send(result);
+    } catch (error) {
+        res.status(500).send('Internal Server Error');
+    }
 });
 
 // Handle other endpoints
