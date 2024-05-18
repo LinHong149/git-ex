@@ -91,6 +91,75 @@ const App = ({ addOnUISdk, sandboxProxy, clientStorage }) => {
         // You may use "addOnUISdk.app.ui.theme" to get the current theme and react accordingly.
         <Theme theme="express" scale="medium" color="light">
             <div className="mainContainer">
+                <div className="topContainer">
+                    <div className="headingContainer">
+                        <p>Choose A Branch</p>
+                        <div className="headingNav">
+                            <div className="branchSelectionContainer">
+                                <div className="itemsContainer">
+                                    <p>Main</p>
+                                    <sp-picker-button quiet></sp-picker-button>
+                                </div>
+                                <img></img>
+                            </div>
+                            <div className="createBranchContainer">
+                                <img></img>
+                                <img></img>
+                            </div> 
+                        </div> 
+                    </div>    
+                    <div className="actionContainer">
+                        <Button className="pushContainer">
+                            <img></img>
+                            <p>Push Changes</p>
+                        </Button>
+                        <div className="pullMergeContainer">
+                            <Button className="pullContainer">
+                                <p>Pull Version</p>
+                            </Button>
+                            <Button className="mergeContainer">
+                                <p>Merge Versions</p>
+                            </Button>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="bottomContainer">
+                    <div className="versionsTextContainer">
+                        <p>Versions</p>
+                    </div>
+                    <div className="versionHistoryContainer">
+                        <VersionHistory></VersionHistory>
+                    </div>
+                </div>                    
+                            
+
+                  
+                
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                 <div className="dropDownContainer">
                     <div className="dropDownItems">
                         <p className ="tittle">Main</p>

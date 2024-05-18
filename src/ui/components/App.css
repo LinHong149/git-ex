@@ -3,53 +3,26 @@
     --buttonWidth: 50px;
 }
 
-.container {
-    margin: 24px;
+.mainContainer {
+    display: flex;
+    flex-direction: column;
+    
+}
+
+.topContainer {
     display: flex;
     flex-direction: column;
 }
 
-.dropDownContainer {
+.headingContainer {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    
+    
 }
 
-.dropDownItems{
-    position: relative;
-    width: 100%;
+.headingNav {
+    border: solid red;
     display: flex;
     justify-content: space-between;
-    align-items: center;
-}
-
-.tittle{
-    width: 30px;
-    font-size: large;
-}
-
-.actionContainers{
-    display: flex;
-    border: solid red;
-    justify-content: center;
-    gap: 60px;
-}
-
-.pushButton{
-    border: solid blue;
-    background-color: red;
-    width: var(--buttonWidth);
-    border-radius: var(--radius);
-}
-
-.pullButton{
-    border: solid blue;
-    border-radius: var(--radius);
-    width: var(--buttonWidth);
-}
-
-.mergeButton{
-    border: solid blue;
-    border-radius: var(--radius);
-    width: var(--buttonWidth);
 }
