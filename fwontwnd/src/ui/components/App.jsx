@@ -33,9 +33,9 @@ const App = ({ addOnUISdk, sandboxProxy, clientStorage }) => {
     }
     async function listChil() {
         const response = await sandboxProxy.listChildren();
-        console.log(response)
+        console.log("listChil",response)
         try {
-            initRepo(response)
+            await initRepo(response)
         } catch (error) {
             console.log(error)
         }
@@ -170,54 +170,64 @@ const App = ({ addOnUISdk, sandboxProxy, clientStorage }) => {
     }
     
     async function addApi() {
-        let store = addOnUISdk.instance.clientStorage;
-        let jsonData;
-
         try {
-            const rawData = await store.getItem('repository');
-            if (rawData) {
-                jsonData = JSON.parse(rawData); // Ensure the data is parsed correctly
-            } else {
-                console.error("No data found in client storage");
+
+            await listChil()
+            let store = addOnUISdk.instance.clientStorage;
+            let jsonData;
+
+            try {
+                const rawData = await store.getItem('repository');
+                console.log("rawData", rawData)
+                if (rawData) {
+                    jsonData = JSON.parse(rawData); // Ensure the data is parsed correctly
+                } else {
+                    console.error("No data found in client storage");
+                    return;
+                }
+            } catch (error) {
+                console.error("Error fetching data from client storage:", error);
                 return;
             }
-        } catch (error) {
-            console.error("Error fetching data from client storage:", error);
-            return;
-        }
 
-        console.log("jsonData", jsonData)
-        console.log("jsonData[0][1]", jsonData[0][1])
-        let versionFile = jsonData[0][1]
-        let fileName = jsonData[0][0]['id'] + String(numVersions) + ".json"
+            console.log("jsonData", jsonData)
+            console.log("jsonData[0][1]", jsonData[0][1])
+            let versionFile = jsonData[0][1]
+            let fileName = jsonData[0][0]['id'] + String(numVersions) + ".json"
 
-        console.log(versionFile, fileName)
+            console.log(versionFile, fileName)
 
-        try {
-            const response = await fetch("http://localhost:3005/add", {
-                method: "PUT",
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    "path": "/data",
-                    "files": versionFile,
-                    "fileName": fileName
-                }),
-            });
-    
-            if (!response.ok) {
-                console.log("add failed");
-            } else {
-                console.log("add success");
-                setnumVersions(prevNumVersions => prevNumVersions + 1);
+            try {
+                const response = await fetch("http://localhost:3005/add", {
+                    method: "PUT",
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        "path": "/data",
+                        "files": versionFile,
+                        "fileName": fileName
+                    }),
+                });
+                
+                if (!response.ok) {
+                    console.log("add failed");
+                } else {
+                    console.log("add success");
+                    setnumVersions(prevNumVersions => prevNumVersions + 1);
+                    await commitApi("Commit")
+                }
+            } catch (error) {
+                console.error("Error:", error);
             }
-        } catch (error) {
+        }
+        catch (error) {
             console.error("Error:", error);
         }
     }
-
+    
     async function fetchApi() {
+        console.log("runnning fetch")
         let store = addOnUISdk.instance.clientStorage;
         let jsonData;
         try {
@@ -259,9 +269,15 @@ const App = ({ addOnUISdk, sandboxProxy, clientStorage }) => {
             // Store the updated jsonData back to client storage
             await store.setItem('repository', JSON.stringify(jsonData));
             console.log(await store.getItem('repository'));
+            showVersion(jsonData)
         } catch (error) {
             console.error("Error:", error);
         }
+    }
+
+    function showVersion(data) {
+        console.log("runs showVersion")
+        sandboxProxy.showVersion(data);
     }
     
     
@@ -298,7 +314,7 @@ const App = ({ addOnUISdk, sandboxProxy, clientStorage }) => {
                             </div>
                         </Button>
                         <div className="pullMergeContainer">
-                            <Button disabled size="s" className="pullContainer">
+                            <Button size="s" className="pullContainer">
                                 <div className="pullParentDiv">
                                     <p>Pull Version</p>
                                 </div>
@@ -330,11 +346,13 @@ const App = ({ addOnUISdk, sandboxProxy, clientStorage }) => {
                         </div>
                         :
                          Array.from({ length: numVersions }).map((_, i) => (
-                            <VersionHistory title={`Version ${i+1}`} key={i} />
+                            <div key={i}  onClick={() => {
+                                setfetchVersion(i);
+                                fetchApi();
+                            }}>
+                                <VersionHistory title={`Version ${i+1}`} />
+                            </div>
                         ))}
-                        
-            
-
                     </div>
                 </div>
 
@@ -344,9 +362,6 @@ const App = ({ addOnUISdk, sandboxProxy, clientStorage }) => {
                 <Button size="m" onClick={listChil}>
                     List Children
                 </Button>
-                <Button size="m" onClick={initRepo}>
-                    Init Repository
-                </Button>  
                 <Button size="m" onClick={showStorage}>
                     Show Storage
                 </Button>

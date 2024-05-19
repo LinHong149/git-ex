@@ -70,16 +70,16 @@ function start() {
                             console.log(`Parent: ${visualNodeChild.parent.name} (ID: ${visualNodeChild.parent.id}) Type: ${visualNodeChild.parent.type}`)
                             console.log(`Translation: x - ${visualNodeChild.translation.x} y - ${visualNodeChild.translation.y}`)
                             // if (visualNodeChild.type === "Text") {
-                                visualNodeChild.setPositionInParent({
-                                    x: Math.random() * visualNodeChild.parent.width,
-                                    y: Math.random() * visualNodeChild.parent.height
-                                }, {
-                                    x: 0,
-                                    y: 0
-                                });
-                                visualNodeChild.setRotationInParent(Math.round(Math.random() * 360),{ x: 0, y: 0 });
+                                // visualNodeChild.setPositionInParent({
+                                //     x: visualNodeChild.parent.width,
+                                //     y: visualNodeChild.parent.height
+                                // }, {
+                                //     x: 0,
+                                //     y: 0
+                                // });
+                                // visualNodeChild.setRotationInParent(Math.round(360),{ x: 0, y: 0 });
                             // }
-                            console.log(`Translation: x - ${visualNodeChild.translation.x} y - ${visualNodeChild.translation.y}`)
+                            // console.log(`Translation: x - ${visualNodeChild.translation.x} y - ${visualNodeChild.translation.y}`)
                         }
                     }
                     jsonData.push(branchData)
@@ -114,6 +114,40 @@ function start() {
                 }
             } catch (error) {
                 console.error("Error random children:", error);
+            }
+        },
+        showVersion: async (data) => {
+            try {
+                // Clears screen
+        const insertionParent = editor.context.insertionParent;
+        const children = [...insertionParent.children]; // Copy children to avoid mutation issues
+
+        children.forEach(child => child.removeFromParent());
+
+                // Assuming data[0][1] is an array of objects with x and y properties
+                for (const item of data[0][1]) {
+                    const rectangle = editor.createRectangle();
+        
+                    // Define rectangle dimensions
+                    rectangle.width = 240;
+                    rectangle.height = 180;
+        
+                    // Define rectangle position
+                    rectangle.translation = { x: item.x, y: item.y };
+        
+                    // Define rectangle color
+                    const color = { red: 0.32, green: 0.34, blue: 0.89, alpha: 1 };
+        
+                    // Fill the rectangle with the color
+                    const rectangleFill = editor.makeColorFill(color);
+                    rectangle.fill = rectangleFill;
+        
+                    // Add the rectangle to the document
+                    const insertionParent = editor.context.insertionParent;
+                    insertionParent.children.append(rectangle);
+                }
+            } catch (error) {
+                console.error("Error showing version:", error);
             }
         }
     };
