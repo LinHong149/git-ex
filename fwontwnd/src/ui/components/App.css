@@ -1,40 +1,200 @@
-:root {
-    --radius: 10px;
-    --buttonWidth: 50px;
+* {
+    box-sizing: border-box;
 }
 
-.mainContainer {
+:root{
+    --padding: 20px
+
+}
+
+img {
+    max-width: 100%;
+    
+    height: auto;
+    max-height: 20px;
+    /* border: solid red; */
+}
+
+p{
+    /* border:solid blue;     */
+}
+
+.mainContainer{
     display: flex;
     flex-direction: column;
-    
 }
-
 .topContainer {
     display: flex;
     flex-direction: column;
+    gap: 20px;
+    padding-right: var(--padding);
+    padding-left: var(--padding);
 }
 
-.headingContainer {
+.headerNav {
     display: flex;
-    flex-direction: column;
-    
-    
+    height: 25px;
+    justify-content: space-between;
+    align-items: center;
+    gap: 100px;
 }
 
-.headingNav {
-    border: solid red;
+.selectingBranchContainer {
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    width: 2em;
+    gap: 10px;
 }
 
-.branchSelectionContainer {
+.mainArrowContainer {
     display: flex;
+    align-items: center;
+    padding: 0;
 }
 
-.itemsContainer {
-    display:flex;
+.creatingBranchContainer {
+    display: flex;
+    width: fit-content;
+    flex-direction: row-reverse;
+    justify-self: auto;
+    padding: 15px;
+    gap: 20px;
+    
 }
 
-.createBranchContainer {
-    display:flex;
+.tittle {
+    font-size:large;
+    font-weight: bold;
 }
+
+.subHeading {
+    font-size: auto;
+    height: auto;
+}
+
+.actionContainer {
+    display: flex;
+    flex-direction: column;
+    /* border: solid red;    */
+    gap: 10px;
+    padding: 0;
+}
+
+.pushContainer {
+    width: 100%;
+}
+
+.pushText {
+    width: min-content;
+    margin: 0;
+}
+
+.parentDiv {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 30px;
+}
+
+.pullMergeContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: auto;
+    /* border: solid red; */
+    max-height: 40px;
+    gap: 10px;
+    padding:0;
+}
+
+.pullParentDiv{
+    min-width:100px;
+}
+
+.mergeParentDiv{
+    min-width:100px;
+}
+
+.versionsContainer{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    /* border: solid red; */
+    margin: 0;
+    padding-right: 15px;
+    padding-left: 15px;
+
+    
+}
+
+.versionsParentContainer{
+    display: flex;
+    flex-direction: column;
+    margin:0;
+    gap:0;
+    padding:0;
+    /* border: solid blue; */
+
+
+}
+
+.versionText{
+    /* border: solid green; */
+    width: fit-content;
+    margin: 0;
+    padding: 0;
+    gap: 0;
+    font-size:medium;
+}
+
+.bottomContainer{
+    display: flex;
+    flex-direction: column;
+    padding-right: var(--padding);
+    padding-left: var(--padding);
+}
+
+.versionImagesEye{
+    height: 40px;
+    /* border: solid red; */
+}
+
+.versionImages {
+    width: 60px;
+    min-height: 60px;
+    object-fit: cover;
+    /* border: solid purple; */
+    margin: 0;
+    padding:0;
+
+}
+
+.imageTextContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* border: solid purple; */
+    padding: 0;
+    gap: 15px;
+    margin: 0;
+
+}
+
+.abc{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    /* border: solid red; */
+
+}
+
+.versionHistory{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+
+
+

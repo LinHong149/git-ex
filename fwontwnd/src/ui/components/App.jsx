@@ -15,12 +15,16 @@ import '@spectrum-web-components/divider/sp-divider.js';
 import VersionHistory from "./versionHistory.jsx";
 import addOnUISdk, { ClientStorage } from "https://new.express.adobe.com/static/add-on-sdk/sdk.js";
 import { useState } from "react"
-import Image from "./images/goose2.png";
+import sortIcon from "./images/sortIcon.png";
+import pushIcon from "./images/push_icon.png";
+import searchBranchesIcon from "./images/search_branches_icon.png";
+import addBranchIcon from "./images/add_branch_icon.png";
 
 const App = ({ addOnUISdk, sandboxProxy, clientStorage }) => {
     const [currBranch, setCurrBranch] = useState("main")
     const [selectedBranch, setselectedBranch] = useState("second")
-
+    const [numVersions, setnumVersions] = useState(0)
+    const [fetchVersion, setfetchVersion] = useState(0)
 
     function createRect() {
         sandboxProxy.createRectangle();
@@ -36,7 +40,6 @@ const App = ({ addOnUISdk, sandboxProxy, clientStorage }) => {
     }
     async function pushModal() {
         await AddOnSdk.ready;
-        const cancelButtonTextValue = "submit"
 
         let dialogOptions = {
             title: "Push current changes onto " + currBranch,
@@ -54,6 +57,9 @@ const App = ({ addOnUISdk, sandboxProxy, clientStorage }) => {
         };
         try {
             const response = await AddOnSdk.app.showModalDialog(dialogOptions);
+            // console.log(response)
+            await addApi()
+            await commitApi(response.fieldValue)
         } catch (error) {
             console.log(error)
         }
@@ -75,20 +81,10 @@ const App = ({ addOnUISdk, sandboxProxy, clientStorage }) => {
 
 
     async function initRepo(repo) {
+        await initApi()
         let store = addOnUISdk.instance.clientStorage;
         try {
             await store.setItem('repository', repo);
-            // const repo = await store.getItem('repository');
-            // if (repo) {
-            //     console.log('Repository already exists');
-            // } else {
-            //     const newRepo = {
-            //         commits: [],
-            //         files: {}
-            //     };
-            //     await store.setItem('repository', newRepo);
-            //     console.log('Repository initialized');
-            // }
             console.log("Value stored in client storage:", store.getItem('repository'));
         } catch (error) {
             console.log('Failed to initialize repository:', error);
@@ -106,13 +102,13 @@ const App = ({ addOnUISdk, sandboxProxy, clientStorage }) => {
     }
     async function initApi() {
         try {
-            const response = await fetch("http://localhost:3000/init", {
+            const response = await fetch("http://localhost:3005/init", {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    "path": "/data.json",
+                    "path": "/data",
                 }),
             });
     
@@ -125,58 +121,210 @@ const App = ({ addOnUISdk, sandboxProxy, clientStorage }) => {
             console.error("Error:", error);
         }
     }
+
+    async function commitApi(message) {
+        try {
+            const response = await fetch("http://localhost:3005/commit", {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    "path": "/data",
+                    "message": message,
+                }),
+            });
+    
+            if (!response.ok) {
+                console.log("commit failed");
+            } else {
+                console.log("commit success");
+            }
+        } catch (error) {
+            console.error("Error:", error);
+        }
+    }
+    
+    async function statusApi() {
+        try {
+            const response = await fetch("http://localhost:3005/status?path=data", {
+                method: "GET",
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            });
+    
+            const data = await response.json()
+            if (!response.ok) {
+                console.log("status failed");
+            } else {
+                console.log("status success", data);
+            }
+        } catch (error) {
+            console.error("Error:", error);
+        }
+    }
+    
+    async function addApi() {
+        let store = addOnUISdk.instance.clientStorage;
+        let jsonData;
+
+        try {
+            const rawData = await store.getItem('repository');
+            if (rawData) {
+                jsonData = JSON.parse(rawData); // Ensure the data is parsed correctly
+            } else {
+                console.error("No data found in client storage");
+                return;
+            }
+        } catch (error) {
+            console.error("Error fetching data from client storage:", error);
+            return;
+        }
+
+        console.log("jsonData", jsonData)
+        console.log("jsonData[0][1]", jsonData[0][1])
+        let versionFile = jsonData[0][1]
+        let fileName = jsonData[0][0]['id'] + String(numVersions) + ".json"
+
+        console.log(versionFile, fileName)
+
+        try {
+            const response = await fetch("http://localhost:3005/add", {
+                method: "PUT",
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    "path": "/data",
+                    "files": versionFile,
+                    "fileName": fileName
+                }),
+            });
+    
+            if (!response.ok) {
+                console.log("add failed");
+            } else {
+                console.log("add success");
+                setnumVersions(prevNumVersions => prevNumVersions + 1);
+            }
+        } catch (error) {
+            console.error("Error:", error);
+        }
+    }
+
+    async function fetchApi() {
+        let store = addOnUISdk.instance.clientStorage;
+        let jsonData;
+        try {
+            const rawData = await store.getItem('repository');
+            if (rawData) {
+                jsonData = JSON.parse(rawData); // Ensure the data is parsed correctly
+            } else {
+                console.error("No data found in client storage");
+                return;
+            }
+        } catch (error) {
+            console.error("Error fetching data from client storage:", error);
+            return;
+        }
+    
+        let fileName = jsonData[0][0]['id'] + String(fetchVersion);
+
+        try {
+            const response = await fetch("http://localhost:3005/fetch?path=data/"+fileName+".json", {
+                method: "GET",
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            });
+    
+            if (!response.ok) {
+                console.log("fetch failed");
+                const errorText = await response.text();
+                console.error("Error response from server:", errorText);
+                return;
+            }
+    
+            const data = await response.json();
+            console.log("fetch success");
+    
+            // Replace the second section of jsonData with the fetched data
+            jsonData[0][1] = data;
+    
+            // Store the updated jsonData back to client storage
+            await store.setItem('repository', JSON.stringify(jsonData));
+            console.log(await store.getItem('repository'));
+        } catch (error) {
+            console.error("Error:", error);
+        }
+    }
     
     
 
-    
 
     return (
         // Please note that the below "<Theme>" component does not react to theme changes in Express.
         // You may use "addOnUISdk.app.ui.theme" to get the current theme and react accordingly.
         <Theme theme="express" scale="medium" color="light">
             <div className="mainContainer">
-                <div className="topContainer">
-                    <div className="headingContainer">
-                        <p>Choose A Branch</p>
-                        <div className="headingNav">
-                            <div className="branchSelectionContainer">
-                                <div className="itemsContainer">
-                                    <p>Main</p>
-                                    <sp-picker-button quiet></sp-picker-button>
+                <div className = "topContainer">
+                    <div>
+                        <p className="tittle">Choose A Branch</p>
+                        <div className = "headerNav">
+                            <div className = "selectingBranchContainer">
+                                <div className = "mainArrowContainer">
+                                    <p className= "subheading">Main</p>
+                                    <sp-picker-button quiet sizeL></sp-picker-button>
                                 </div>
-                                <img src={Image}></img>
+                                <img src={sortIcon}></img>
                             </div>
-                            <div className="createBranchContainer">
-                                <img src={Image}></img>
-                                <img src={Image}></img>
-                            </div> 
-                        </div> 
-                    </div>    
+                            <div className = "creatingBranchContainer">
+                                <img src={searchBranchesIcon}></img>
+                                <img src={addBranchIcon}></img>
+                            </div>
+                        </div>
+                    </div>
+                    
                     <div className="actionContainer">
                         <Button className="pushContainer" onClick={pushModal}>
-                            <img></img>
-                            <p>Push Changes</p>
+                            <div className="parentDiv">
+                                <img className="pushIconImage"src={pushIcon}></img>
+                                <p className="pushText">Push Changes</p>
+                            </div>
                         </Button>
                         <div className="pullMergeContainer">
-                            <Button className="pullContainer">
-                                <p>Pull Version</p>
+                            <Button disabled size="s" className="pullContainer">
+                                <div className="pullParentDiv">
+                                    <p>Pull Version</p>
+                                </div>
                             </Button>
-                            <Button className="mergeContainer" onClick={mergeModal}>
-                                <p>Merge Versions</p>
+                            <Button disabled size="s" className="mergeContainer" onClick={mergeModal}>
+                                <div className="mergeParentDiv">
+                                    <p>Merge Versions</p>
+                                </div>
                             </Button>
                         </div>
                     </div>
+
                 </div>
 
-                <div className="bottomContainer">
-                    <div className="versionsTextContainer">
-                        <p>Versions</p>
+                <div className = "bottomContainer">
+                    <div className = "versionsParentDiv">
+                        <p className="tittle">Versions</p>
                     </div>
-                    <div className="versionHistoryContainer">
-                        <VersionHistory></VersionHistory>
-                    </div>
-                </div>                    
+                    <div className="versionHistory">
+                        {numVersions == 0 ? 
+                        "No versions" 
+                        :
+                         Array.from({ length: numVersions }).map((_, i) => (
+                            <VersionHistory title={`Version ${i+1}`} key={i} />
+                        ))}
                         
+            
+
+                    </div>
+                </div>
 
                 <Button size="m" onClick={createRect}>
                     Create Rectangle
@@ -193,8 +341,22 @@ const App = ({ addOnUISdk, sandboxProxy, clientStorage }) => {
                 <Button size="m" onClick={randomFun}>
                     Random
                 </Button>
+                <Button size="m" onClick={() => commitApi("test message")}>
+                    commit
+                </Button>
+                <Button size="m" onClick={statusApi}>
+                    status
+                </Button>
+                <Button size="m" onClick={addApi}>
+                    add curr branch
+                </Button>
+                <Button size="m" onClick={fetchApi}>
+                    fetch branch
+                </Button>
                 
             </div>
+                   
+                        
 
         </Theme>
     );
