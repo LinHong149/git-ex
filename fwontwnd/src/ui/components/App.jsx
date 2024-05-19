@@ -111,6 +111,11 @@ const App = ({ addOnUISdk, sandboxProxy, clientStorage }) => {
         let store = addOnUISdk.instance.clientStorage;
         console.log("Value stored in client storage:", await store.getItem('repository'));
     }
+
+    async function randomFun() {
+        const response = await sandboxProxy.randomFun();
+        console.log(response)
+    }
     
 
     return (
@@ -175,6 +180,9 @@ const App = ({ addOnUISdk, sandboxProxy, clientStorage }) => {
                 </Button>
                 <Button size="m" onClick={showStorage}>
                     Show Storage
+                </Button>
+                <Button size="m" onClick={randomFun}>
+                    Random
                 </Button>
                 
             </div>

@@ -67,6 +67,18 @@ function start() {
                             console.log(`Child: ${visualNodeChild.name} (ID: ${visualNodeChild.id})`);
                             console.log(`Type: ${visualNodeChild.type}`);
                             // https://developer.adobe.com/express/add-ons/docs/references/document-sandbox/document-apis/interfaces/Point/
+                            console.log(`Parent: ${visualNodeChild.parent.name} (ID: ${visualNodeChild.parent.id}) Type: ${visualNodeChild.parent.type}`)
+                            console.log(`Translation: x - ${visualNodeChild.translation.x} y - ${visualNodeChild.translation.y}`)
+                            // if (visualNodeChild.type === "Text") {
+                                visualNodeChild.setPositionInParent({
+                                    x: Math.random() * visualNodeChild.parent.width,
+                                    y: Math.random() * visualNodeChild.parent.height
+                                }, {
+                                    x: 0,
+                                    y: 0
+                                });
+                                visualNodeChild.setRotationInParent(Math.round(Math.random() * 360),{ x: 0, y: 0 });
+                            // }
                             console.log(`Translation: x - ${visualNodeChild.translation.x} y - ${visualNodeChild.translation.y}`)
                         }
                     }
@@ -77,6 +89,33 @@ function start() {
                 console.error("Error listing children:", error);
             }
         },
+        randomFun: async () => {
+            try {
+                console.log("Start of function");
+                const documentRoot = editor.documentRoot;
+                const pages = documentRoot.pages;
+                for (const page of pages) {
+                    const pageNodeChildren = page.allChildren;
+                    for (const pageNodeChild of pageNodeChildren) {
+                        const visualNodeChildren = pageNodeChild.allChildren;
+                        for (const visualNodeChild of visualNodeChildren) {
+                            visualNodeChild.setPositionInParent({
+                                x: Math.random() * visualNodeChild.parent.width,
+                                y: Math.random() * visualNodeChild.parent.height
+                            }, {
+                                x: 0,
+                                y: 0
+                            });
+                            visualNodeChild.setRotationInParent(Math.round(Math.random() * 360),{ x: 0, y: 0 });
+                            // }
+                            console.log(`Translation: x - ${visualNodeChild.translation.x} y - ${visualNodeChild.translation.y}`)
+                        }
+                    }
+                }
+            } catch (error) {
+                console.error("Error random children:", error);
+            }
+        }
     };
 
     // Expose `sandboxApi` to the UI runtime.

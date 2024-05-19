@@ -6,7 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="a3d55e8b-6469-4fad-9b93-a614e1f30119" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bwckwnd/gitu.js" beforeDir="false" afterPath="$PROJECT_DIR$/bwckwnd/gitu.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fwontwnd/src/sandbox/code.js" beforeDir="false" afterPath="$PROJECT_DIR$/fwontwnd/src/sandbox/code.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fwontwnd/src/ui/components/App.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/fwontwnd/src/ui/components/App.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -103,7 +104,7 @@
       <option name="presentableId" value="Default" />
       <updated>1716053948981</updated>
       <workItem from="1716053950053" duration="1970000" />
-      <workItem from="1716061091757" duration="11586000" />
+      <workItem from="1716061091757" duration="15233000" />
     </task>
     <servers />
   </component>
