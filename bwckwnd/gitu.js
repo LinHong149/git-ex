@@ -19,6 +19,7 @@ async function initializeRepo(repoPath) {
         console.log('Initialized a new Git repository.');
     } catch (error) {
         console.error('Failed to initialize repository:', error);
+        throw new error('Failed to initialize repository:', error);
     }
 }
 
@@ -50,6 +51,7 @@ async function commitChanges(repoPath, commitMessage) {
         return result;
     } catch (error) {
         console.error('Failed to commit changes:', error);
+        throw new error('Failed to commit changes:', error);
     }
 }
 
@@ -62,6 +64,17 @@ async function checkStatus(repoPath) {
         return result;
     } catch (error) {
         console.error('Failed to check status:', error);
+        throw new error('Failed to check status:', error);
+    }
+}
+
+async function readJsonFile(filePath) {
+    try {
+        const data = fs.readFileSync(filePath, 'utf8');
+        return JSON.parse(data);
+    } catch (error) {
+        console.error('Failed to read JSON file:', error);
+        throw new error('Failed to read JSON file:', error);
     }
 }
 
@@ -70,4 +83,5 @@ module.exports = {
     addFiles,
     commitChanges,
     checkStatus,
+    readJsonFile
 };
