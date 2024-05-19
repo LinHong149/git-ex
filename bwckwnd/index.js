@@ -5,9 +5,7 @@ const path = require('path');
 
 const app = express();
 const port = 3000;
-
 app.use(express.json());
-
 // Enable CORS for all origins
 app.use(cors());
 
@@ -29,6 +27,10 @@ app.post(['/init', '/commit'], async (req, res) => {
     } catch (error) {
         res.status(500).send('Internal Server Error');
     }
+});
+
+app.listen(3000, () => {
+    console.log('Server is running on port 3000');
 });
 
 app.get('/status', async (req, res) => {

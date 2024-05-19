@@ -71,20 +71,8 @@ const App = ({ addOnUISdk, sandboxProxy, clientStorage }) => {
         } catch (error) {
             console.log(error)
         }
-    }async function testModal() {
-        await AddOnSdk.ready;
-
-        let dialogOptions = {
-            title: "titleValue",
-            description: "test",
-            variant: "confirmation",
-        };
-        try {
-            const response = await AddOnSdk.app.showModalDialog(dialogOptions);
-        } catch (error) {
-            console.log(error)
-        }
     }
+
 
     async function initRepo(repo) {
         let store = addOnUISdk.instance.clientStorage;
@@ -116,6 +104,30 @@ const App = ({ addOnUISdk, sandboxProxy, clientStorage }) => {
         const response = await sandboxProxy.randomFun();
         console.log(response)
     }
+    async function initApi() {
+        try {
+            const response = await fetch("http://localhost:3000/init", {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    "path": "/data.json",
+                }),
+            });
+    
+            if (!response.ok) {
+                console.log("init failed");
+            } else {
+                console.log("init success");
+            }
+        } catch (error) {
+            console.error("Error:", error);
+        }
+    }
+    
+    
+
     
 
     return (
@@ -171,9 +183,6 @@ const App = ({ addOnUISdk, sandboxProxy, clientStorage }) => {
                 </Button>
                 <Button size="m" onClick={listChil}>
                     List Children
-                </Button>
-                <Button size="m" onClick={testModal}>
-                    Open Test Modal
                 </Button>
                 <Button size="m" onClick={initRepo}>
                     Init Repository
