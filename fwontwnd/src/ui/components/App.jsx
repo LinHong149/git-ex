@@ -40,7 +40,6 @@ const App = ({ addOnUISdk, sandboxProxy, clientStorage }) => {
     }
     async function pushModal() {
         await AddOnSdk.ready;
-        const cancelButtonTextValue = "submit"
 
         let dialogOptions = {
             title: "Push current changes onto " + currBranch,
@@ -58,6 +57,9 @@ const App = ({ addOnUISdk, sandboxProxy, clientStorage }) => {
         };
         try {
             const response = await AddOnSdk.app.showModalDialog(dialogOptions);
+            // console.log(response)
+            await addApi()
+            await commitApi(response.fieldValue)
         } catch (error) {
             console.log(error)
         }
@@ -79,20 +81,10 @@ const App = ({ addOnUISdk, sandboxProxy, clientStorage }) => {
 
 
     async function initRepo(repo) {
+        await initApi()
         let store = addOnUISdk.instance.clientStorage;
         try {
             await store.setItem('repository', repo);
-            // const repo = await store.getItem('repository');
-            // if (repo) {
-            //     console.log('Repository already exists');
-            // } else {
-            //     const newRepo = {
-            //         commits: [],
-            //         files: {}
-            //     };
-            //     await store.setItem('repository', newRepo);
-            //     console.log('Repository initialized');
-            // }
             console.log("Value stored in client storage:", store.getItem('repository'));
         } catch (error) {
             console.log('Failed to initialize repository:', error);
@@ -174,7 +166,6 @@ const App = ({ addOnUISdk, sandboxProxy, clientStorage }) => {
     }
     
     async function addApi() {
-        await commitApi("added main branch version" + String(numBranches))
         let store = addOnUISdk.instance.clientStorage;
         let jsonData;
 
