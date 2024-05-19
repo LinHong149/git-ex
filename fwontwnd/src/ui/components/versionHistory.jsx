@@ -6,7 +6,7 @@ import eye from './images/eye.png';
 import { Divider } from '@spectrum-web-components/divider';
 
 
-function versionHistory() {
+function versionHistory({title}) {
   
 
   return (
@@ -15,7 +15,7 @@ function versionHistory() {
         <div className="imageTextContainer">
           <img className="versionImages" src={goose}></img>
           <div className ="versionsParentContainer">       
-            <p className="versionText">Current Version</p>
+            <p className="versionText">{title}</p>
             <p className="versionText">2 seconds ago</p>
           </div>        
         </div>

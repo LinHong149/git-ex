@@ -23,8 +23,8 @@ import addBranchIcon from "./images/add_branch_icon.png";
 const App = ({ addOnUISdk, sandboxProxy, clientStorage }) => {
     const [currBranch, setCurrBranch] = useState("main")
     const [selectedBranch, setselectedBranch] = useState("second")
-    const [numBranches, setnumBranches] = useState(0)
-    const [fetchVersion, setfetchVersion] = useState(1)
+    const [numVersions, setnumVersions] = useState(0)
+    const [fetchVersion, setfetchVersion] = useState(0)
 
     function createRect() {
         sandboxProxy.createRectangle();
@@ -185,7 +185,7 @@ const App = ({ addOnUISdk, sandboxProxy, clientStorage }) => {
         console.log("jsonData", jsonData)
         console.log("jsonData[0][1]", jsonData[0][1])
         let versionFile = jsonData[0][1]
-        let fileName = jsonData[0][0]['id'] + String(numBranches) + ".json"
+        let fileName = jsonData[0][0]['id'] + String(numVersions) + ".json"
 
         console.log(versionFile, fileName)
 
@@ -206,7 +206,7 @@ const App = ({ addOnUISdk, sandboxProxy, clientStorage }) => {
                 console.log("add failed");
             } else {
                 console.log("add success");
-                setnumBranches(prevNumBranches => prevNumBranches + 1);
+                setnumVersions(prevNumVersions => prevNumVersions + 1);
             }
         } catch (error) {
             console.error("Error:", error);
@@ -229,10 +229,10 @@ const App = ({ addOnUISdk, sandboxProxy, clientStorage }) => {
             return;
         }
     
-        // let fileName = jsonData[0][0]['id'] + String(fetchVersion);
+        let fileName = jsonData[0][0]['id'] + String(fetchVersion);
 
         try {
-            const response = await fetch("http://localhost:3005/fetch?path=data/4b8b1997-7c3f-41a8-955e-2a70204097e80.json", {
+            const response = await fetch("http://localhost:3005/fetch?path=data/"+fileName+".json", {
                 method: "GET",
                 headers: {
                     'Content-Type': 'application/json',
@@ -262,7 +262,6 @@ const App = ({ addOnUISdk, sandboxProxy, clientStorage }) => {
     
     
 
-    
 
     return (
         // Please note that the below "<Theme>" component does not react to theme changes in Express.
@@ -315,11 +314,13 @@ const App = ({ addOnUISdk, sandboxProxy, clientStorage }) => {
                         <p className="tittle">Versions</p>
                     </div>
                     <div className="versionHistory">
-                        <VersionHistory></VersionHistory>
-                        <VersionHistory></VersionHistory>
-                        <VersionHistory></VersionHistory>
-                        <VersionHistory></VersionHistory>
-                        <VersionHistory></VersionHistory>
+                        {numVersions == 0 ? 
+                        "No versions" 
+                        :
+                         Array.from({ length: numVersions }).map((_, i) => (
+                            <VersionHistory title={`Version ${i+1}`} key={i} />
+                        ))}
+                        
             
 
                     </div>
