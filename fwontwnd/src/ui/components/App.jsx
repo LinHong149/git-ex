@@ -23,7 +23,8 @@ import addBranchIcon from "./images/add_branch_icon.png";
 const App = ({ addOnUISdk, sandboxProxy, clientStorage }) => {
     const [currBranch, setCurrBranch] = useState("main")
     const [selectedBranch, setselectedBranch] = useState("second")
-
+    const [numBranches, setnumBranches] = useState(0)
+    const [fetchVersion, setfetchVersion] = useState(1)
 
     function createRect() {
         sandboxProxy.createRectangle();
@@ -109,13 +110,13 @@ const App = ({ addOnUISdk, sandboxProxy, clientStorage }) => {
     }
     async function initApi() {
         try {
-            const response = await fetch("http://localhost:3000/init", {
+            const response = await fetch("http://localhost:3005/init", {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    "path": "/data.json",
+                    "path": "/data",
                 }),
             });
     
@@ -124,6 +125,145 @@ const App = ({ addOnUISdk, sandboxProxy, clientStorage }) => {
             } else {
                 console.log("init success");
             }
+        } catch (error) {
+            console.error("Error:", error);
+        }
+    }
+
+    async function commitApi(message) {
+        try {
+            const response = await fetch("http://localhost:3005/commit", {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    "path": "/data",
+                    "message": message,
+                }),
+            });
+    
+            if (!response.ok) {
+                console.log("commit failed");
+            } else {
+                console.log("commit success");
+            }
+        } catch (error) {
+            console.error("Error:", error);
+        }
+    }
+    
+    async function statusApi() {
+        try {
+            const response = await fetch("http://localhost:3005/status?path=data", {
+                method: "GET",
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            });
+    
+            const data = await response.json()
+            if (!response.ok) {
+                console.log("status failed");
+            } else {
+                console.log("status success", data);
+            }
+        } catch (error) {
+            console.error("Error:", error);
+        }
+    }
+    
+    async function addApi() {
+        await commitApi("added main branch version" + String(numBranches))
+        let store = addOnUISdk.instance.clientStorage;
+        let jsonData;
+
+        try {
+            const rawData = await store.getItem('repository');
+            if (rawData) {
+                jsonData = JSON.parse(rawData); // Ensure the data is parsed correctly
+            } else {
+                console.error("No data found in client storage");
+                return;
+            }
+        } catch (error) {
+            console.error("Error fetching data from client storage:", error);
+            return;
+        }
+
+        console.log("jsonData", jsonData)
+        console.log("jsonData[0][1]", jsonData[0][1])
+        let versionFile = jsonData[0][1]
+        let fileName = jsonData[0][0]['id'] + String(numBranches) + ".json"
+
+        console.log(versionFile, fileName)
+
+        try {
+            const response = await fetch("http://localhost:3005/add", {
+                method: "PUT",
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    "path": "/data",
+                    "files": versionFile,
+                    "fileName": fileName
+                }),
+            });
+    
+            if (!response.ok) {
+                console.log("add failed");
+            } else {
+                console.log("add success");
+                setnumBranches(prevNumBranches => prevNumBranches + 1);
+            }
+        } catch (error) {
+            console.error("Error:", error);
+        }
+    }
+
+    async function fetchApi() {
+        let store = addOnUISdk.instance.clientStorage;
+        let jsonData;
+        try {
+            const rawData = await store.getItem('repository');
+            if (rawData) {
+                jsonData = JSON.parse(rawData); // Ensure the data is parsed correctly
+            } else {
+                console.error("No data found in client storage");
+                return;
+            }
+        } catch (error) {
+            console.error("Error fetching data from client storage:", error);
+            return;
+        }
+    
+        // let fileName = jsonData[0][0]['id'] + String(fetchVersion);
+
+        try {
+            const response = await fetch("http://localhost:3005/fetch?path=data/4b8b1997-7c3f-41a8-955e-2a70204097e80.json", {
+                method: "GET",
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            });
+    
+            if (!response.ok) {
+                console.log("fetch failed");
+                const errorText = await response.text();
+                console.error("Error response from server:", errorText);
+                return;
+            }
+    
+            const data = await response.json();
+            console.log("fetch success");
+    
+            // Replace the second section of jsonData with the fetched data
+            jsonData[0][1] = data;
+    
+            // Store the updated jsonData back to client storage
+            await store.setItem('repository', JSON.stringify(jsonData));
+            console.log(await store.getItem('repository'));
         } catch (error) {
             console.error("Error:", error);
         }
@@ -209,6 +349,19 @@ const App = ({ addOnUISdk, sandboxProxy, clientStorage }) => {
                 <Button size="m" onClick={randomFun}>
                     Random
                 </Button>
+                <Button size="m" onClick={() => commitApi("test message")}>
+                    commit
+                </Button>
+                <Button size="m" onClick={statusApi}>
+                    status
+                </Button>
+                <Button size="m" onClick={addApi}>
+                    add curr branch
+                </Button>
+                <Button size="m" onClick={fetchApi}>
+                    fetch branch
+                </Button>
+                
             </div>
                    
                         
