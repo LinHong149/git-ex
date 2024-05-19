@@ -1,11 +1,26 @@
 const express = require('express');
+const cors = require('cors');
 const { initializeRepo, commitChanges, checkStatus, addFiles } = require('./gitu');
 const path = require('path');
 
 const app = express();
 const port = 3000;
-
 app.use(express.json());
+
+// Enable CORS for all origins and methods
+const corsOptions = {
+    origin: '',
+    methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
+    allowedHeaders: ['Origin', 'X-Requested-With', 'Content-Type', 'Accept', 'Authorization'],
+    optionsSuccessStatus: 204
+  };
+  
+  app.use(cors(corsOptions));
+  app.options('', cors(corsOptions)); // Enable pre-flight for all routes
+  
+  app.get('/init', (req, res) => {
+    res.json({ message: 'CORS is enabled!' });
+  });
 
 app.post(['/init', '/commit'], async (req, res) => {
     const { path: repoPath, message } = req.body;
@@ -25,6 +40,10 @@ app.post(['/init', '/commit'], async (req, res) => {
     } catch (error) {
         res.status(500).send('Internal Server Error');
     }
+});
+
+app.listen(3000, () => {
+    console.log('Server is running on port 3000');
 });
 
 app.get('/status', async (req, res) => {
