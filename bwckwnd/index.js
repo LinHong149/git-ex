@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const { initializeRepo, commitChanges, checkStatus, addFiles, readJsonFile} = require('./gitu');
 const path = require('path');
 
@@ -6,6 +7,9 @@ const app = express();
 const port = 3000;
 
 app.use(express.json());
+
+// Enable CORS for all origins
+app.use(cors());
 
 app.post(['/init', '/commit'], async (req, res) => {
     const { path: repoPath, message } = req.body;
