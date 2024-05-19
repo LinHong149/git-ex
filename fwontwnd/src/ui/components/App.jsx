@@ -27,6 +27,7 @@ const App = ({ addOnUISdk, sandboxProxy, clientStorage }) => {
     const [selectedBranch, setselectedBranch] = useState("second")
     const [numVersions, setnumVersions] = useState(0)
     const [fetchVersion, setfetchVersion] = useState(0)
+    const [versionData, setVersionData] = useState(null)
 
     function createRect() {
         sandboxProxy.createRectangle();
@@ -225,6 +226,63 @@ const App = ({ addOnUISdk, sandboxProxy, clientStorage }) => {
             console.error("Error:", error);
         }
     }
+
+    async function reAddApi() {
+        try {
+
+            await listChil()
+            let store = addOnUISdk.instance.clientStorage;
+            let jsonData;
+
+            try {
+                const rawData = await store.getItem('repository');
+                console.log("rawData", rawData)
+                if (rawData) {
+                    jsonData = JSON.parse(rawData); // Ensure the data is parsed correctly
+                } else {
+                    console.error("No data found in client storage");
+                    return;
+                }
+            } catch (error) {
+                console.error("Error fetching data from client storage:", error);
+                return;
+            }
+
+            console.log("jsonData", jsonData)
+            console.log("jsonData[0][1]", jsonData[0][1])
+            let versionFile = jsonData[0][1]
+            let fileName = jsonData[0][0]['id'] + String(fetchVersion) + ".json"
+
+            console.log(versionFile, fileName)
+
+            try {
+                const response = await fetch("http://localhost:3005/add", {
+                    method: "PUT",
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        "path": "/data",
+                        "files": versionFile,
+                        "fileName": fileName
+                    }),
+                });
+                
+                if (!response.ok) {
+                    console.log("add failed");
+                } else {
+                    console.log("add success");
+                    setnumVersions(prevNumVersions => prevNumVersions + 1);
+                    await commitApi("Commit")
+                }
+            } catch (error) {
+                console.error("Error:", error);
+            }
+        }
+        catch (error) {
+            console.error("Error:", error);
+        }
+    }
     
     async function fetchApi() {
         console.log("runnning fetch")
@@ -270,6 +328,8 @@ const App = ({ addOnUISdk, sandboxProxy, clientStorage }) => {
             await store.setItem('repository', JSON.stringify(jsonData));
             console.log(await store.getItem('repository'));
             showVersion(jsonData)
+
+            setVersionData(jsonData);
         } catch (error) {
             console.error("Error:", error);
         }
@@ -278,6 +338,42 @@ const App = ({ addOnUISdk, sandboxProxy, clientStorage }) => {
     function showVersion(data) {
         console.log("runs showVersion")
         sandboxProxy.showVersion(data);
+    }
+
+    async function pullVersion() {
+        if (!versionData) {
+            console.error("No version data available to pull");
+            return;
+        }
+    
+        let store = addOnUISdk.instance.clientStorage;
+        let jsonData;
+        try {
+            const rawData = await store.getItem('repository');
+            if (rawData) {
+                jsonData = JSON.parse(rawData); // Ensure the data is parsed correctly
+            } else {
+                console.error("No data found in client storage");
+                return;
+            }
+        } catch (error) {
+            console.error("Error fetching data from client storage:", error);
+            return;
+        }
+    
+        // Update the second section of jsonData with the fetched data
+        jsonData[0][1] = versionData;
+    
+        // Store the updated jsonData back to client storage
+        try {
+            await store.setItem('repository', JSON.stringify(jsonData));
+            console.log("Version pulled and stored in client storage:", await store.getItem('repository'));
+    
+            // Call addApi to change the old file to the new JSON file
+            await reAddApi();
+        } catch (error) {
+            console.error("Error updating client storage:", error);
+        }
     }
     
     
@@ -314,12 +410,12 @@ const App = ({ addOnUISdk, sandboxProxy, clientStorage }) => {
                             </div>
                         </Button>
                         <div className="pullMergeContainer">
-                            <Button size="s" className="pullContainer">
+                            <Button size="s" className="pullContainer" onClick={pullVersion}>
                                 <div className="pullParentDiv">
                                     <p>Pull Version</p>
                                 </div>
                             </Button>
-                            <Button disabled size="s" className="mergeContainer" onClick={mergeModal}>
+                            <Button disabled size="s" className="mergeContainer" onClick={pullVersion}>
                                 <div className="mergeParentDiv">
                                     <p>Merge Versions</p>
                                 </div>
@@ -368,9 +464,9 @@ const App = ({ addOnUISdk, sandboxProxy, clientStorage }) => {
                 <Button size="m" onClick={randomFun}>
                     Random
                 </Button>
-                <Button size="m" onClick={() => commitApi("test message")}>
+                {/* <Button size="m" onClick={() => commitApi("test message")}>
                     commit
-                </Button>
+                </Button> */}
                 <Button size="m" onClick={statusApi}>
                     status
                 </Button>
