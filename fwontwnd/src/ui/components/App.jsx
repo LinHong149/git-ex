@@ -19,6 +19,8 @@ import sortIcon from "./images/sortIcon.png";
 import pushIcon from "./images/push_icon.png";
 import searchBranchesIcon from "./images/search_branches_icon.png";
 import addBranchIcon from "./images/add_branch_icon.png";
+import noHistory from "./noHistory.jsx";
+import version_image from "./images/versions_image.jpg";
 
 const App = ({ addOnUISdk, sandboxProxy, clientStorage }) => {
     const [currBranch, setCurrBranch] = useState("main")
@@ -78,6 +80,8 @@ const App = ({ addOnUISdk, sandboxProxy, clientStorage }) => {
             console.log(error)
         }
     }
+
+
 
 
     async function initRepo(repo) {
@@ -315,7 +319,15 @@ const App = ({ addOnUISdk, sandboxProxy, clientStorage }) => {
                     </div>
                     <div className="versionHistory">
                         {numVersions == 0 ? 
-                        "No versions" 
+                        <div className="noHistoryContainer">
+                            <img className="versionImage" src={version_image}></img>
+                            <div className="mainTextContainer">
+                                <p className="mainText">Your Adobe Express design versions will appear here</p>
+                            </div>
+                            <div className="subTextContainer">
+                                <p>Click <u>Push Changes</u> to start saving named versions of your design!</p>
+                            </div>
+                        </div>
                         :
                          Array.from({ length: numVersions }).map((_, i) => (
                             <VersionHistory title={`Version ${i+1}`} key={i} />
@@ -334,7 +346,7 @@ const App = ({ addOnUISdk, sandboxProxy, clientStorage }) => {
                 </Button>
                 <Button size="m" onClick={initRepo}>
                     Init Repository
-                </Button>
+                </Button>  
                 <Button size="m" onClick={showStorage}>
                     Show Storage
                 </Button>
