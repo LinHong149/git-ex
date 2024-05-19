@@ -1,17 +1,31 @@
 import React from 'react'
 import "./App.css"
-// import logo from './logo.png';
+import { Button } from '@swc-react/button'
+import goose from './images/goose2.png';
+import eye from './images/eye.png';
+import { Divider } from '@spectrum-web-components/divider';
+
 
 function versionHistory() {
+  
+
   return (
-    <div className="container">
-        <img></img>
-        <div className="textContainer">
-            <p>Version 1</p>
-            <p>2 days ago</p>
+    <div className="abc">
+      <div className="versionsContainer">
+        <div className="imageTextContainer">
+          <img className="versionImages" src={goose}></img>
+          <div className ="versionsParentContainer">       
+            <p className="versionText">Current Version</p>
+            <p className="versionText">2 seconds ago</p>
+          </div>        
         </div>
-        <sp-picker-button quiet></sp-picker-button>
+        <img className="versionImagesEye"src={eye}></img>
+      </div>
+
+      <sp-divider size="m"></sp-divider>
     </div>
+    
+    
   )
 }
 

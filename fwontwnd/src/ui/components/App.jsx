@@ -15,7 +15,10 @@ import '@spectrum-web-components/divider/sp-divider.js';
 import VersionHistory from "./versionHistory.jsx";
 import addOnUISdk, { ClientStorage } from "https://new.express.adobe.com/static/add-on-sdk/sdk.js";
 import { useState } from "react"
-import Image from "./images/goose2.png";
+import sortIcon from "./images/sortIcon.png";
+import pushIcon from "./images/push_icon.png";
+import searchBranchesIcon from "./images/search_branches_icon.png";
+import addBranchIcon from "./images/add_branch_icon.png";
 
 const App = ({ addOnUISdk, sandboxProxy, clientStorage }) => {
     const [currBranch, setCurrBranch] = useState("main")
@@ -135,48 +138,61 @@ const App = ({ addOnUISdk, sandboxProxy, clientStorage }) => {
         // You may use "addOnUISdk.app.ui.theme" to get the current theme and react accordingly.
         <Theme theme="express" scale="medium" color="light">
             <div className="mainContainer">
-                <div className="topContainer">
-                    <div className="headingContainer">
-                        <p>Choose A Branch</p>
-                        <div className="headingNav">
-                            <div className="branchSelectionContainer">
-                                <div className="itemsContainer">
-                                    <p>Main</p>
-                                    <sp-picker-button quiet></sp-picker-button>
+                <div className = "topContainer">
+                    <div>
+                        <p className="tittle">Choose A Branch</p>
+                        <div className = "headerNav">
+                            <div className = "selectingBranchContainer">
+                                <div className = "mainArrowContainer">
+                                    <p className= "subheading">Main</p>
+                                    <sp-picker-button quiet sizeL></sp-picker-button>
                                 </div>
-                                <img src={Image}></img>
+                                <img src={sortIcon}></img>
                             </div>
-                            <div className="createBranchContainer">
-                                <img src={Image}></img>
-                                <img src={Image}></img>
-                            </div> 
-                        </div> 
-                    </div>    
+                            <div className = "creatingBranchContainer">
+                                <img src={searchBranchesIcon}></img>
+                                <img src={addBranchIcon}></img>
+                            </div>
+                        </div>
+                    </div>
+                    
                     <div className="actionContainer">
                         <Button className="pushContainer" onClick={pushModal}>
-                            <img></img>
-                            <p>Push Changes</p>
+                            <div className="parentDiv">
+                                <img className="pushIconImage"src={pushIcon}></img>
+                                <p className="pushText">Push Changes</p>
+                            </div>
                         </Button>
                         <div className="pullMergeContainer">
-                            <Button className="pullContainer">
-                                <p>Pull Version</p>
+                            <Button disabled size="s" className="pullContainer">
+                                <div className="pullParentDiv">
+                                    <p>Pull Version</p>
+                                </div>
                             </Button>
-                            <Button className="mergeContainer" onClick={mergeModal}>
-                                <p>Merge Versions</p>
+                            <Button disabled size="s" className="mergeContainer" onClick={mergeModal}>
+                                <div className="mergeParentDiv">
+                                    <p>Merge Versions</p>
+                                </div>
                             </Button>
                         </div>
                     </div>
+
                 </div>
 
-                <div className="bottomContainer">
-                    <div className="versionsTextContainer">
-                        <p>Versions</p>
+                <div className = "bottomContainer">
+                    <div className = "versionsParentDiv">
+                        <p className="tittle">Versions</p>
                     </div>
-                    <div className="versionHistoryContainer">
+                    <div className="versionHistory">
                         <VersionHistory></VersionHistory>
+                        <VersionHistory></VersionHistory>
+                        <VersionHistory></VersionHistory>
+                        <VersionHistory></VersionHistory>
+                        <VersionHistory></VersionHistory>
+            
+
                     </div>
-                </div>                    
-                        
+                </div>
 
                 <Button size="m" onClick={createRect}>
                     Create Rectangle
@@ -193,8 +209,9 @@ const App = ({ addOnUISdk, sandboxProxy, clientStorage }) => {
                 <Button size="m" onClick={randomFun}>
                     Random
                 </Button>
-                
             </div>
+                   
+                        
 
         </Theme>
     );
