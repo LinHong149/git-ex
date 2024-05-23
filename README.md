@@ -3,12 +3,16 @@
 ## Inspiration
 
 As programmers, we use git a lot, maybe too much. Many apps like Figma, Canva, and Adobe Express are collaborative tools, but only have basic version history. We wanted to integrate git version control with Adobe Express to enable more effective and efficient designs. Being able to compare branches side by side and merging agreed on features is obvious, yet difficult. No longer will you wake up seeing random changes on your main file!
+
 ![Fatal Flaw](https://cdn.discordapp.com/attachments/1070372249959407646/1243246584452485300/Slide_16_9_-_3.png?ex=6650c71c&is=664f759c&hm=086240d24b6d73e498269108ab737bda65e2895ef063a83b854b946214a5153b&)
 ![GitExpress](https://cdn.discordapp.com/attachments/1070372249959407646/1243246584842420305/Slide_16_9_-_4.png?ex=6650c71c&is=664f759c&hm=3cb3372e34af4a6076df81e21f4426b943a81825fc8965a61261ce0f00c2bb81&)
 
 ## What it does
 
 Using Adobe's SDK's, we collect all objects within a file including: images, text, containers, and much more. After collecting the unique ids and variables like current translation and rotation, we store a local copy to the browser and push the changes to a remote server hosting the git repository. This repository tracks changes and allows for integration without imposing storage bloat on the user's computers.
+
+![Creating Branch](https://cdn.discordapp.com/attachments/1070372249959407646/1243246583987048529/MacBook_Air_-_16.png?ex=6650c71c&is=664f759c&hm=9aa4a40452367172cef3b860d7b867b86c60b7388e886ac3ff5e56402f58b0f7&)
+![Merge Conflicts](https://cdn.discordapp.com/attachments/1070372249959407646/1243246583311499334/MacBook_Air_-_15.png?ex=6650c71b&is=664f759b&hm=3b3de53a2b946559e2a66d01ea939c022e63ae1b344095e8a238716007bc7a33&)
 
 ## How we built it
 
@@ -19,6 +23,8 @@ The Document Sandbox provided access to all the nodes. The structure of a file w
 After comparing how it changed, we retrieved the data by going through the hierarchy and passed the information from the Sandbox directory to the UI directory as a JSON file. We created multiple GIT apis, including: Init, Commit, Add, Fetch and Status. This allowed our application to have a version history that can be viewed and edited as pleased.
 
 INTEGRATION HELL(HEHEHAHA): At this point we had a separate frontend that was created using React-and-Javascript-with-Document-Sandbox-support, styled with Spectrum CSS and Spectrum Web Components. We integrated the frontend and the backend with api calls passing data from the user to the api call to the endpoint and then back.
+
+![GitExpress](https://cdn.discordapp.com/attachments/1070372249959407646/1243246585257922560/Slide_16_9_-_5.png?ex=6650c71c&is=664f759c&hm=43f098c6f5d99ce47a0fcd0c795bf10c6880fcba272459f715afbb9a00f91982&)
 
 ## Challenges we ran into
 
