@@ -1,3 +1,5 @@
+# GitExpress
+
 ## Inspiration
 
 As programmers, we use git a lot, maybe too much. Many apps like Figma, Canva, and Adobe Express are collaborative tools, but only have basic version history. We wanted to integrate git version control with Adobe Express to enable more effective and efficient designs. Being able to compare branches side by side and merging agreed on features is obvious, yet difficult. No longer will you wake up seeing random changes on your main file!
