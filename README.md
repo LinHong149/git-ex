@@ -46,7 +46,7 @@ Use Cohere API to generate Version Names based on the user's commit message.
 
 ## Demo (Youtube)
 
-[![Demo Video]([http://img.youtube.com/vi/nX_inqaAzOI/0.jpg](https://cdn.discordapp.com/attachments/1070372249959407646/1243245661361799208/Thumbnail.png?ex=6650c640&is=664f74c0&hm=e2124b725d371f756a8b6fcc0be6b56e7f069f7a4254ae09f276635347a433c9&))](https://www.youtube.com/watch?v=Sw63SwE4vj4 "Demo Video")
+[![Demo Video](https://cdn.discordapp.com/attachments/1070372249959407646/1243245661361799208/Thumbnail.png?ex=6650c640&is=664f74c0&hm=e2124b725d371f756a8b6fcc0be6b56e7f069f7a4254ae09f276635347a433c9)](https://www.youtube.com/watch?v=Sw63SwE4vj4 "Demo Video")
 
 
 ## Prototype (Figma)
