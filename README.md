@@ -26,7 +26,7 @@ Another challenge we faced was determining how to track changes. We narrowed it 
 
 The final major challenge was determining how to show changes. Unlike code, where you can look at the lines and get a relative understanding, looking at the coordinates and id of an object doesn't give you much for visuals. We decided to take a snapshot of the canvas along with code to assist the user.
 
-Accomplishments that we're proud of
+## Accomplishments that we're proud of
 
 Visually, our extension surpassed our expectations. We weren't that confident since the original repo was bare HTML, CSS, and JS. After converting to React, we hit another wall of not being able to use Tailwind CSS. After learning Adobe's Spectrum, we were able to make a stunning design.
 
