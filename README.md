@@ -11,6 +11,7 @@ As programmers, we use git a lot, maybe too much. Many apps like Figma, Canva, a
 
 Using Adobe's SDK's, we collect all objects within a file including: images, text, containers, and much more. After collecting the unique ids and variables like current translation and rotation, we store a local copy to the browser and push the changes to a remote server hosting the git repository. This repository tracks changes and allows for integration without imposing storage bloat on the user's computers.
 
+![Commiting](https://cdn.discordapp.com/attachments/1070372249959407646/1243247714926461078/MacBook_Air_-_3.png?ex=6650c829&is=664f76a9&hm=f7550153b85f8b6698d882b5c9d428e2bfd257b90615f23e67f829abbf749725&)
 ![Creating Branch](https://cdn.discordapp.com/attachments/1070372249959407646/1243246583987048529/MacBook_Air_-_16.png?ex=6650c71c&is=664f759c&hm=9aa4a40452367172cef3b860d7b867b86c60b7388e886ac3ff5e56402f58b0f7&)
 ![Merge Conflicts](https://cdn.discordapp.com/attachments/1070372249959407646/1243246583311499334/MacBook_Air_-_15.png?ex=6650c71b&is=664f759b&hm=3b3de53a2b946559e2a66d01ea939c022e63ae1b344095e8a238716007bc7a33&)
 
