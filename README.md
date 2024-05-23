@@ -34,21 +34,15 @@ Visually, our extension surpassed our expectations. We weren't that confident si
 
 This project reinforced our learning of object oriented programming. Going through the hierarchy of objects and seeing the structure of the file was an excellent practical use of theory. We drew out the relations to further our understanding. We know much more about OOP than before this project.
 
-## We also learned about proxying for Adobe Express. We learned about the runtimes and how proxies work. The abstraction was confusing at first, but after much tinkering and reading, we have a much stronger understanding.
+We also learned about proxying for Adobe Express. We learned about the runtimes and how proxies work. The abstraction was confusing at first, but after much tinkering and reading, we have a much stronger understanding.
 
-What's next for GitExpress
+## What's next for GitExpress
 
 Connect to remote repositories like GitHub or GitLab to enable further collaboration.
 
 Create branches and merging behaviours to simulate GitHub desktop.
 
 Use Cohere API to generate Version Names based on the user's commit message.
-
-Domain Name
-
-https://gitouttahere.biz/
-
-Git outta here, it's none of your business!
 
 ## Demo (Youtube)
 
